@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/masone/codeclimate-clog.svg?branch=master)](https://travis-ci.org/masone/codeclimate-clog)
+
 # Code Climate Clog Engine
 
 `codeclimate-clog` is a Code Climate engine that wraps [Clog](https://www.npmjs.com/package/clog-analysis). Clog performs CoffeeScript static analysis. You can run it on your command line using the Code Climate CLI, or on our hosted analysis platform.

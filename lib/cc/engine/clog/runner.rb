@@ -15,15 +15,17 @@ module CC
         end
 
         def call
-          _stdin, stdout, stderr = Open3.popen3(command)
+          _stdin, stdout, stderr = Open3.popen3(command, chdir: @directory)
           if (err = stderr.gets)
-            raise(err)
+            fail "Command failed - #{err}"
           elsif (output = stdout.gets)
             JSON.parse(output).each do |path, result|
               check_result(path, result)
             end
           end
         end
+
+        private
 
         def check_result(path, result)
           complexity = result['complexity']
@@ -33,10 +35,8 @@ module CC
           @io.puts issue.to_json
         end
 
-        private
-
         def command
-          "cd #{@directory} && clog #{included_files.join(' ')}"
+          "clog #{included_files.join(' ')}"
         end
 
         def included_files
