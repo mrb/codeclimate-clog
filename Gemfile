@@ -6,3 +6,8 @@ group :development do
   gem 'rake'
   gem 'rubocop'
 end
+
+group :test do
+  gem 'minitest'
+  gem 'minitest-reporters'
+end

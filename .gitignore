@@ -2,3 +2,5 @@
 .rvmrc
 node_modules
 bin/clog_dev
+tmp/*
+script

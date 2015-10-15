@@ -1,5 +1,7 @@
 engines:
   rubocop:
+    enabled: false
+  clog:
     enabled: true
 ratings:
   paths:

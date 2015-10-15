@@ -14,7 +14,9 @@ module CC
                         check_name: 'Overall complexity',
                         description: 'High overall complexity reported by clog.',
                         categories: ['Complexity'],
-                        location: @path,
+                        location: {
+                          path: @path
+                        },
                         remediation_points: @complexity)
         end
       end

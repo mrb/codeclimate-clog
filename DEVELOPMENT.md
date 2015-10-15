@@ -4,7 +4,7 @@ http://blog.codeclimate.com/blog/2015/07/07/build-your-own-codeclimate-engine/
 
 Build docker container
 ```
-docker build --rm -t masone/codeclimate-clog .
+docker build --rm -t codeclimate/codeclimate-clog .
 ```
 
 Enable engine in .codeclimate.yml
@@ -18,4 +18,3 @@ Run engine
 ```
 codeclimate analyze --dev
 ```
-
