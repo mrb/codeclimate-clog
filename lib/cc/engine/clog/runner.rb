@@ -32,7 +32,7 @@ module CC
           return unless complexity > @complexity_threshold
 
           issue = Issue.new(path: path, complexity: complexity)
-          @io.puts issue.to_json
+          @io.puts "#{issue.to_json}\0"
         end
 
         def command
