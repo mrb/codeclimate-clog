@@ -12,7 +12,7 @@ module CC
         def to_json
           JSON.generate(type: 'issue',
                         check_name: 'Overall complexity',
-                        description: 'High overall complexity reported by clog.',
+                        description: 'High overall complexity.',
                         categories: ['Complexity'],
                         location: {
                           path: @path
