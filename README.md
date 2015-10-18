@@ -2,7 +2,9 @@
 
 # Code Climate Clog Engine
 
-`codeclimate-clog` is a Code Climate engine that wraps [Clog](https://www.npmjs.com/package/clog-analysis). Clog performs CoffeeScript static analysis. You can run it on your command line using the Code Climate CLI, or on our hosted analysis platform.
+`codeclimate-clog` is a Code Climate engine that wraps [Clog](https://www.npmjs.com/package/clog-analysis). Clog performs CoffeeScript static analysis. You can run it on your command line using the Code Climate CLI, or on the [codeclimate analysis platform](https://codeclimate.com).
+
+Clog assesses code complexity by analyzing tokens from the coffeescript lexer. Tokens include operators (eg. +, =, --), control structures (eg. for, if, switch) and various other constructs. In general, few tokens per file are favored over many. Tokens that lead to complex code have a higher penalty than basic ones.
 
 
 ### Installation
