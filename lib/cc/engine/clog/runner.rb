@@ -17,7 +17,7 @@ module CC
         def call
           _stdin, stdout, stderr = Open3.popen3(command, chdir: @directory)
           if (err = stderr.gets)
-            abort "Command failed - #{err}"
+            abort "Clog command failed - #{err}: #{command}"
           elsif (output = stdout.gets)
             JSON.parse(output).each do |path, result|
               check_result(path, result)
