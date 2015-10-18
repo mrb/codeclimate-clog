@@ -1,7 +1,7 @@
 require 'json'
 require 'open3'
 require 'cc/engine/clog/issue'
-require 'cc/engine/clog/analyzable_files'
+require 'cc/engine/clog/path_filter'
 
 module CC
   module Engine
@@ -36,11 +36,12 @@ module CC
         end
 
         def command
+          return if included_files.empty?
           "clog #{included_files.join(' ')}"
         end
 
         def included_files
-          AnalyzableFiles.new(@include_paths).all
+          PathFilter.new(@include_paths).call
         end
       end
     end
