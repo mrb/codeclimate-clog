@@ -14,13 +14,12 @@ module CC
 
           describe 'call' do
             it 'raises when command fails' do
-              assert RuntimeError do
-                popen_return = [stub(gets: nil), stub(gets: nil), stub(gets: 'err')]
-                Open3.expects(:popen3).returns(popen_return)
+              popen_return = [stub(gets: nil), stub(gets: nil), stub(gets: 'err')]
+              Open3.expects(:popen3).returns(popen_return)
+              assert_raises SystemExit do
                 Runner.new(directory: 'test/fixtures/included_files', io: mock_io).call
               end
             end
-
             it 'reports issue json to console if complexity is > 100' do
               popen_return = [stub(gets: nil), stub(gets: complex_output), stub(gets: nil)]
               Open3.expects(:popen3).returns(popen_return)
