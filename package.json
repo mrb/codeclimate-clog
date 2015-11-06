@@ -1,0 +1,6 @@
+{
+  "name": "clog",
+  "dependencies": {
+    "clog-analysis": "^1.0.0"
+  }
+}
