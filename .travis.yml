@@ -6,3 +6,6 @@ before_script:
 rvm:
   - 2.1.7
   - 2.2.3
+addons:
+  code_climate:
+    repo_token: a8a377c2aaefe1075d85b14525beb8dd87938b6a27aff9542a47cbc75fa9f990

@@ -1,4 +1,6 @@
 [![Build Status](https://travis-ci.org/masone/codeclimate-clog.svg?branch=master)](https://travis-ci.org/masone/codeclimate-clog)
+[![Code Climate](https://codeclimate.com/repos/563c66d46956800cf3000003/badges/2446c6aec8982895361a/gpa.svg)](https://codeclimate.com/repos/563c66d46956800cf3000003/feed)
+[![Test Coverage](https://codeclimate.com/repos/563c66d46956800cf3000003/badges/2446c6aec8982895361a/coverage.svg)](https://codeclimate.com/repos/563c66d46956800cf3000003/coverage)
 
 # Code Climate Clog Engine
 
