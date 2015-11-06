@@ -1,5 +1,6 @@
 {
   "name": "clog",
+  "private": true,
   "dependencies": {
     "clog-analysis": "1.0.0"
   }
