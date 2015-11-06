@@ -16,7 +16,7 @@ RUN adduser -u 9000 -D app
 COPY . /usr/src/app
 RUN chown -R app:app /usr/src/app
 
-COPY /usr/src/app/node_modules/.bin/clog /code/clog
+COPY node_modules/clog-analysis/bin/clog /code/clog
 
 USER app
 CMD "ruby" "/usr/src/app/bin/clog"

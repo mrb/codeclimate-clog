@@ -2,8 +2,8 @@ require 'tempfile'
 
 require 'json'
 require 'open3'
-require 'cc/engine/clog/issue'
 require 'cc/engine/clog/path_filter'
+require 'cc/engine/clog/output_interpreter'
 
 module CC
   module Engine
@@ -12,21 +12,19 @@ module CC
         def initialize(directory:, engine_config: {}, io:)
           @directory = directory
           @include_paths = engine_config['include_paths']
-          @token_complexity_threshold = engine_config['token_complexity_threshold'] || 50
           @io = io
         end
 
         def call
           return if included_files.empty?
 
-          stdout = Tempfile.new('out')
-          stderr = Tempfile.new('err')
+          out_file = Tempfile.new('out')
+          err_file = Tempfile.new('err')
 
-          success = system(command, chdir: @directory, out: [stdout, 'a'], err: [stderr, 'a'])
-          if success
-            parse_output(File.read(stdout))
+          if system(command, chdir: @directory, out: [out_file, 'a'], err: [err_file, 'a'])
+            parse_output(File.read(out_file))
           else
-            handle_error(File.read(stderr))
+            handle_error(File.read(err_file))
           end
         end
 
@@ -34,7 +32,8 @@ module CC
 
         def parse_output(out)
           JSON.parse(out).each do |path, result|
-            check_result(path, result)
+            output_interpreter = OutputInterpreter.new(path, result).call
+            output_interpreter.issues.each { |issue| report_issue(issue) }
           end
         end
 
@@ -42,11 +41,7 @@ module CC
           abort "Clog command failed #{err} - #{@directory} - #{command}"
         end
 
-        def check_result(path, result)
-          token_complexity = result['tokenComplexity'] || 0
-          return unless token_complexity > @token_complexity_threshold
-
-          issue = Issue.new(path: path, complexity: token_complexity)
+        def report_issue(issue)
           @io.puts "#{issue.to_json}\0"
         end
 
