@@ -1,14 +1,12 @@
 require 'minitest_helper'
 require 'json'
 
-require 'cc/engine/clog/issue'
-
 module CC
   module Engine
     module Clog
-      class IssueTest < Minitest::Test
-        describe 'Issue' do
-          let(:issue) { Issue.new(path: 'path', complexity: 5) }
+      class CyclomaticComplexityIssueTest < Minitest::Test
+        describe 'Issue::CyclomaticComplexity' do
+          let(:issue) { Issue::CyclomaticComplexity.new(path: 'path', length: 50, from: 2, to: 52) }
 
           describe 'to_json' do
             let(:issue_json) { JSON.parse(issue.to_json) }
@@ -34,8 +32,12 @@ module CC
             it 'sets path as location path' do
               assert_equal 'path', issue_json['location']['path']
             end
-            it 'sets complexity as emediation_points' do
-              assert_equal 5, issue_json['remediation_points']
+            it 'sets from and to as location lines begin and end' do
+              assert_equal 2, issue_json['location']['lines']['begin']
+              assert_equal 52, issue_json['location']['lines']['end']
+            end
+            it 'sets length as remediation_points' do
+              assert_equal 50, issue_json['remediation_points']
             end
           end
         end
