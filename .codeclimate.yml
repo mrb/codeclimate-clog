@@ -1,8 +1,8 @@
-engines:
-  rubocop:
-    enabled: false
-  clog:
-    enabled: true
+languages:
+   Ruby: true
 ratings:
   paths:
   - "**.rb"
+exclude_paths:
+- test/**/*
+- node_modules/**/*
