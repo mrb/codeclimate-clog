@@ -11,8 +11,8 @@ module CC
 
         def to_json
           JSON.generate(type: 'issue',
-                        check_name: 'Overall complexity',
-                        description: 'High overall complexity.',
+                        check_name: 'Token complexity',
+                        description: 'High overall token complexity.',
                         content: content,
                         categories: ['Complexity'],
                         location: {

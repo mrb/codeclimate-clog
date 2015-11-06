@@ -1,3 +1,5 @@
+require 'tempfile'
+
 require 'json'
 require 'open3'
 require 'cc/engine/clog/issue'
@@ -7,36 +9,48 @@ module CC
   module Engine
     module Clog
       class Runner
-        def initialize(directory:, engine_config:{}, io:)
+        def initialize(directory:, engine_config: {}, io:)
           @directory = directory
           @include_paths = engine_config['include_paths']
-          @complexity_threshold = engine_config['complexity_threshold'] || 100
+          @token_complexity_threshold = engine_config['token_complexity_threshold'] || 50
           @io = io
         end
 
         def call
-          _stdin, stdout, stderr = Open3.popen3(command, chdir: @directory)
-          if (err = stderr.gets)
-            abort "Clog command failed - #{err}: #{command}"
-          elsif (output = stdout.gets)
-            JSON.parse(output).each do |path, result|
-              check_result(path, result)
-            end
+          return if included_files.empty?
+
+          stdout = Tempfile.new('out')
+          stderr = Tempfile.new('err')
+
+          success = system(command, chdir: @directory, out: [stdout, 'a'], err: [stderr, 'a'])
+          if success
+            parse_output(File.read(stdout))
+          else
+            handle_error(File.read(stderr))
           end
         end
 
         private
 
-        def check_result(path, result)
-          complexity = result['complexity']
-          return unless complexity > @complexity_threshold
+        def parse_output(out)
+          JSON.parse(out).each do |path, result|
+            check_result(path, result)
+          end
+        end
 
-          issue = Issue.new(path: path, complexity: complexity)
+        def handle_error(err)
+          abort "Clog command failed #{err} - #{@directory} - #{command}"
+        end
+
+        def check_result(path, result)
+          token_complexity = result['tokenComplexity'] || 0
+          return unless token_complexity > @token_complexity_threshold
+
+          issue = Issue.new(path: path, complexity: token_complexity)
           @io.puts "#{issue.to_json}\0"
         end
 
         def command
-          return if included_files.empty?
           "clog #{included_files.join(' ')}"
         end
 

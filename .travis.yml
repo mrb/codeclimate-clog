@@ -1,7 +1,7 @@
 language: ruby
 cache: bundler
 before_script:
-  - npm install masone/clog -g
+  - npm install
 rvm:
   - 2.1.7
   - 2.2.3
