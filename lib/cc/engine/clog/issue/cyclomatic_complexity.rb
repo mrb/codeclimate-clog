@@ -5,9 +5,12 @@ module CC
     module Clog
       module Issue
         class CyclomaticComplexity < Base
-          def initialize(path:, length:, from:, to:)
+          THRESHOLD = 5
+          REMEDIATION_FACTOR = 500_000
+
+          def initialize(path:, score:, from:, to:)
             @path = path
-            @length = length
+            @score = score
             @from = from
             @to = to
           end
@@ -15,9 +18,9 @@ module CC
           def to_json
             options = {
               check_name: 'Cyclomatic complexity',
-              description: 'High cyclomatic complexity.',
+              description: "High cyclomatic complexity (#{@score}/#{THRESHOLD})",
               content: content,
-              remediation_points: @length,
+              remediation_points: remediation_points,
               location: {
                 path: @path,
                 lines: {
@@ -27,6 +30,10 @@ module CC
               }
             }
             super(options)
+          end
+
+          def remediation_points
+            REMEDIATION_FACTOR * @score
           end
 
           private

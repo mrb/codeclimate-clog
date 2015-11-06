@@ -5,6 +5,9 @@ module CC
     module Clog
       module Issue
         class FileLength < Base
+          THRESHOLD = 300
+          REMEDIATION_FACTOR = 4_500
+
           def initialize(path:, length:)
             @path = path
             @length = length
@@ -13,11 +16,15 @@ module CC
           def to_json
             options = {
               check_name: 'File length',
-              description: 'Huge number of lines of code in file.',
+              description: "Large number of lines of code in file #{@length}/#{THRESHOLD}",
               content: content,
-              remediation_points: @length
+              remediation_points: remediation_points
             }
             super(options)
+          end
+
+          def remediation_points
+            (@length - THRESHOLD) * REMEDIATION_FACTOR
           end
 
           private

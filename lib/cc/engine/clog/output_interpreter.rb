@@ -26,22 +26,22 @@ module CC
         private
 
         def handle_cyclomatic_complexity
-          lengths = @result['cyclomaticComplexity']['lines'].select { |_, length| length > THRESHOLDS['cyclomatic_complexity'] }
-          lengths.each do |line_range, length|
+          lengths = @result['cyclomaticComplexity']['lines'].select { |_, score| score > Issue::CyclomaticComplexity::THRESHOLD }
+          lengths.each do |line_range, score|
             from, to = parse_line_range(line_range)
-            issues << Issue::CyclomaticComplexity.new(path: @path, length: length, from: from, to: to)
+            issues << Issue::CyclomaticComplexity.new(path: @path, score: score, from: from, to: to)
           end
         end
 
         def handle_file_length
-          length = @result['functionLength']['total'] || 0
-          return unless length > THRESHOLDS['file_length']
+          length = @result['functionLength']['total']
+          return unless length > Issue::FileLength::THRESHOLD
 
           issues << Issue::FileLength.new(path: @path, length: length)
         end
 
         def handle_function_length
-          lengths = @result['functionLength']['lines'].select { |_, length| length > THRESHOLDS['function_length'] }
+          lengths = @result['functionLength']['lines'].select { |_, length| length > Issue::FunctionLength::THRESHOLD }
           lengths.each do |line_range, length|
             from, to = parse_line_range(line_range)
             issues << Issue::FunctionLength.new(path: @path, length: length, from: from, to: to)
@@ -49,22 +49,15 @@ module CC
         end
 
         def handle_token_complexity
-          token_complexity = @result['tokenComplexity'] || 0
-          return unless token_complexity > THRESHOLDS['token_complexity']
+          score = @result['tokenComplexity'] / @result['tokenCount'] * 100
+          return unless score > Issue::TokenComplexity::THRESHOLD
 
-          issues << Issue::TokenComplexity.new(path: @path, score: token_complexity)
+          issues << Issue::TokenComplexity.new(path: @path, score: score)
         end
 
         def parse_line_range(range)
           range.split('-')
         end
-
-        THRESHOLDS = {
-          'token_complexity' => 100,
-          'cyclomatic_complexity' => 5,
-          'file_length' => 100,
-          'function_length' => 15
-        }.freeze
       end
     end
   end

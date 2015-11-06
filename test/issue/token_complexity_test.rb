@@ -8,7 +8,7 @@ module CC
     module Clog
       class TokenComplexityIssueTest < Minitest::Test
         describe 'Issue::TokenComplexity' do
-          let(:issue) { Issue::TokenComplexity.new(path: 'path', score: 5) }
+          let(:issue) { Issue::TokenComplexity.new(path: 'path', score: 111) }
 
           describe 'to_json' do
             let(:issue_json) { JSON.parse(issue.to_json) }
@@ -34,8 +34,8 @@ module CC
             it 'sets path as location path' do
               assert_equal 'path', issue_json['location']['path']
             end
-            it 'sets complexity as remediation_points' do
-              assert_equal 5, issue_json['remediation_points']
+            it 'calculates remediation points' do
+              assert_equal 550_000, issue_json['remediation_points']
             end
           end
         end

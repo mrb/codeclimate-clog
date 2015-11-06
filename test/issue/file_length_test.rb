@@ -32,8 +32,8 @@ module CC
             it 'sets path as location path' do
               assert_equal 'path', issue_json['location']['path']
             end
-            it 'sets length as remediation_points' do
-              assert_equal 900, issue_json['remediation_points']
+            it 'calculates remediation points' do
+              assert_equal 2_700_000, issue_json['remediation_points']
             end
           end
         end

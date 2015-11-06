@@ -36,8 +36,8 @@ module CC
               assert_equal 2, issue_json['location']['lines']['begin']
               assert_equal 52, issue_json['location']['lines']['end']
             end
-            it 'sets length as remediation_points' do
-              assert_equal 50, issue_json['remediation_points']
+            it 'calculates remediation points' do
+              assert_equal 3_500_000, issue_json['remediation_points']
             end
           end
         end
