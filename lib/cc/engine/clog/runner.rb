@@ -18,14 +18,13 @@ module CC
         def call
           return if included_files.empty?
 
-          stdout = Tempfile.new('out')
-          stderr = Tempfile.new('err')
+          out_file = Tempfile.new('out')
+          err_file = Tempfile.new('err')
 
-          success = system(command, chdir: @directory, out: [stdout, 'a'], err: [stderr, 'a'])
-          if success
-            parse_output(File.read(stdout))
+          if system(command, chdir: @directory, out: [out_file, 'a'], err: [err_file, 'a'])
+            parse_output(File.read(out_file))
           else
-            handle_error(File.read(stderr))
+            handle_error(File.read(err_file))
           end
         end
 
