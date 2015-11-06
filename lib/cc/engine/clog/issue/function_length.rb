@@ -5,6 +5,9 @@ module CC
     module Clog
       module Issue
         class FunctionLength < Base
+          THRESHOLD = 15
+          REMEDIATION_FACTOR = 100_000
+
           def initialize(path:, length:, from:, to:)
             @path = path
             @length = length
@@ -15,9 +18,9 @@ module CC
           def to_json
             options = {
               check_name: 'Function length',
-              description: 'Large number of lines of code in function.',
+              description: "Large number of lines of code in function (#{@length}/#{THRESHOLD})",
               content: content,
-              remediation_points: @length,
+              remediation_points: remediation_points,
               location: {
                 path: @path,
                 lines: {
@@ -27,6 +30,10 @@ module CC
               }
             }
             super(options)
+          end
+
+          def remediation_points
+            (@length - THRESHOLD) * REMEDIATION_FACTOR
           end
 
           private

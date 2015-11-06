@@ -1,4 +1,4 @@
-FROM mhart/alpine-node
+FROM mhart/alpine-node:5.0
 
 WORKDIR /usr/src/app
 COPY Gemfile /usr/src/app/

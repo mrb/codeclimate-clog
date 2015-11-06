@@ -6,7 +6,7 @@ module CC
     module Clog
       class CyclomaticComplexityIssueTest < Minitest::Test
         describe 'Issue::CyclomaticComplexity' do
-          let(:issue) { Issue::CyclomaticComplexity.new(path: 'path', length: 50, from: 2, to: 52) }
+          let(:issue) { Issue::CyclomaticComplexity.new(path: 'path', score: 50, from: 2, to: 52) }
 
           describe 'to_json' do
             let(:issue_json) { JSON.parse(issue.to_json) }
@@ -36,8 +36,8 @@ module CC
               assert_equal 2, issue_json['location']['lines']['begin']
               assert_equal 52, issue_json['location']['lines']['end']
             end
-            it 'sets length as remediation_points' do
-              assert_equal 50, issue_json['remediation_points']
+            it 'calculates remediation points' do
+              assert_equal 25_000_000, issue_json['remediation_points']
             end
           end
         end
