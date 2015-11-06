@@ -11,4 +11,5 @@ group :test do
   gem 'minitest'
   gem 'minitest-reporters'
   gem 'mocha'
+  gem 'codeclimate-test-reporter', require: nil
 end

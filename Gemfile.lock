@@ -6,6 +6,9 @@ GEM
     astrolabe (1.3.1)
       parser (~> 2.2)
     builder (3.2.2)
+    codeclimate-test-reporter (0.4.8)
+      simplecov (>= 0.7.1, < 1.0.0)
+    docile (1.1.5)
     json (1.8.3)
     metaclass (0.0.4)
     minitest (5.4.3)
@@ -28,11 +31,17 @@ GEM
       rainbow (>= 1.99.1, < 3.0)
       ruby-progressbar (~> 1.4)
     ruby-progressbar (1.7.5)
+    simplecov (0.10.0)
+      docile (~> 1.1.0)
+      json (~> 1.8)
+      simplecov-html (~> 0.10.0)
+    simplecov-html (0.10.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  codeclimate-test-reporter
   json
   minitest
   minitest-reporters
