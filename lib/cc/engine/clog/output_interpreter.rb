@@ -6,7 +6,7 @@ require 'cc/engine/clog/issue/token_complexity'
 module CC
   module Engine
     module Clog
-      class IssueParser
+      class OutputInterpreter
         def initialize(path, result)
           @path = path
           @result = result

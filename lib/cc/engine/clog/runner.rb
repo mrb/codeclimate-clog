@@ -3,7 +3,7 @@ require 'tempfile'
 require 'json'
 require 'open3'
 require 'cc/engine/clog/path_filter'
-require 'cc/engine/clog/issue_parser'
+require 'cc/engine/clog/output_interpreter'
 
 module CC
   module Engine
@@ -33,8 +33,8 @@ module CC
 
         def parse_output(out)
           JSON.parse(out).each do |path, result|
-            issue_parser = IssueParser.new(path, result).call
-            issue_parser.issues.each { |issue| report_issue(issue) }
+            output_interpreter = OutputInterpreter.new(path, result).call
+            output_interpreter.issues.each { |issue| report_issue(issue) }
           end
         end
 
