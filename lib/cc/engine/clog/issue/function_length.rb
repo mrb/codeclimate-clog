@@ -14,7 +14,7 @@ module CC
 
           def to_json
             options = {
-              check_name: 'Large functions',
+              check_name: 'Function length',
               description: 'Large number of lines of code in function.',
               content: content,
               remediation_points: @length,

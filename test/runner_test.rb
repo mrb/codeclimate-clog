@@ -42,13 +42,13 @@ module CC
                 Runner.new(directory: '.', io: mock_io, engine_config: { 'include_paths' => ['test/fixtures/script/'] }).call
               end
 
-              it 'include Lines of code' do
-                mock_io.expects(:puts).with(includes('Lines of code'))
+              it 'include File length' do
+                mock_io.expects(:puts).with(includes('File length'))
                 Runner.new(directory: '.', io: mock_io, engine_config: { 'include_paths' => ['test/fixtures/script/'] }).call
               end
 
-              it 'include Large functions' do
-                mock_io.expects(:puts).with(includes('Large functions'))
+              it 'include Function length' do
+                mock_io.expects(:puts).with(includes('Function length'))
                 Runner.new(directory: '.', io: mock_io, engine_config: { 'include_paths' => ['test/fixtures/script/'] }).call
               end
             end

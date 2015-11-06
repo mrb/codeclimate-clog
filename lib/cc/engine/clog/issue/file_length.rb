@@ -12,7 +12,7 @@ module CC
 
           def to_json
             options = {
-              check_name: 'Lines of code',
+              check_name: 'File length',
               description: 'Huge number of lines of code in file.',
               content: content,
               remediation_points: @length
