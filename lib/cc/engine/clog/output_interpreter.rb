@@ -49,6 +49,8 @@ module CC
         end
 
         def handle_token_complexity
+          return if @result['tokenCount'] == 0
+
           score = @result['tokenComplexity'] / @result['tokenCount'] * 100
           return unless score > Issue::TokenComplexity::THRESHOLD
 
