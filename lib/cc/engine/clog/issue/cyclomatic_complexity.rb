@@ -19,7 +19,7 @@ module CC
             options = {
               check_name: 'Cyclomatic complexity',
               description: "High cyclomatic complexity (#{@score}/#{THRESHOLD})",
-              content: content,
+              content: { body: content},
               remediation_points: remediation_points,
               location: {
                 path: @path,

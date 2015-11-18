@@ -10,7 +10,11 @@ module CC
               type: 'issue',
               categories: ['Complexity'],
               location: {
-                path: @path
+                path: @path,
+                lines: {
+                  begin: 1,
+                  end: 1
+                }
               }
             }
 
