@@ -2,6 +2,8 @@ sudo: required
 cache: bundler
 services:
   - docker
+install:
+  - curl -L https://github.com/codeclimate/codeclimate/archive/master.tar.gz | tar xvz && sudo make install -C codeclimate-*
 before_script:
   - bundle install --jobs=3 --retry=3 --deployment
   - nvm install
@@ -9,6 +11,7 @@ before_script:
 script:
   - rake test
   - docker build --rm -t codeclimate/codeclimate-clog .
+  - cd test/fixtures/script && codeclimate analyze --dev
 rvm:
   - 2.1.7
   - 2.2.3
