@@ -17,7 +17,7 @@ module CC
             options = {
               check_name: 'Token complexity',
               description: "High overall token complexity (#{@score}/#{THRESHOLD})",
-              content: { body: content},
+              content: { body: content },
               remediation_points: remediation_points,
               location: {
                 path: @path,

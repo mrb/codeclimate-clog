@@ -17,7 +17,7 @@ module CC
             options = {
               check_name: 'File length',
               description: "Large number of lines of code in file #{@length}/#{THRESHOLD}",
-              content: { body: content},
+              content: { body: content },
               remediation_points: remediation_points,
               location: {
                 path: @path,
