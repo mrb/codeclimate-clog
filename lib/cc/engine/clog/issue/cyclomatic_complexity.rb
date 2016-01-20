@@ -22,7 +22,7 @@ module CC
               content: { body: content },
               remediation_points: remediation_points,
               location: {
-                path: @path,
+                path: path,
                 lines: {
                   begin: @from,
                   end: @to
