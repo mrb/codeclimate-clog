@@ -10,7 +10,7 @@ module CC
               type: 'issue',
               categories: ['Complexity'],
               location: {
-                path: @path,
+                path: path,
                 lines: {
                   begin: 1,
                   end: 1
@@ -19,6 +19,12 @@ module CC
             }
 
             JSON.generate(defaults.merge(options))
+          end
+
+          private
+
+          def path
+            @path.gsub(%r{^\./}, '')
           end
         end
       end
