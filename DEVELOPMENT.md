@@ -1,6 +1,9 @@
-http://blog.codeclimate.com/blog/2015/07/07/build-your-own-codeclimate-engine/
+## Resources
 
-# Testing locally
+- http://blog.codeclimate.com/blog/2015/07/07/build-your-own-codeclimate-engine/
+- https://github.com/codeclimate/spec/blob/master/SPEC.md
+
+## Testing locally
 
 Build docker container
 ```
