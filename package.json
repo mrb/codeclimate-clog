@@ -1,6 +1,6 @@
 {
   "name": "clog",
-  "version": "1.0.0-rc2",
+  "version": "1.0.0-rc3",
   "private": true,
   "dependencies": {
     "clog-analysis": "~2.0.0"
