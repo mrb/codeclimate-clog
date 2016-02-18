@@ -38,7 +38,7 @@ module CC
         end
 
         def handle_error(err)
-          if err.match('SyntaxError')
+          if err =~ 'SyntaxError'
             abort 'Clog cannot analyze your code due to a syntax error in one of your coffee files.'
           else
             abort "Clog command failed #{err} in #{@directory} with command #{command}"

@@ -5,11 +5,11 @@ $LOAD_PATH.unshift(
 
 require 'cc/engine/clog/runner'
 
-if File.exist?('/config.json')
-  engine_config = JSON.parse(File.read('/config.json'))
-else
-  engine_config = {}
-end
+engine_config = if File.exist?('/config.json')
+                  JSON.parse(File.read('/config.json'))
+                else
+                  {}
+                end
 
 CC::Engine::Clog::Runner.new(
   directory: '/code', engine_config: engine_config, io: STDOUT
