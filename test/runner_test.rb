@@ -18,7 +18,7 @@ module CC
 
             it 'analyses the files' do
               mock_io.expects(:puts).with(includes('CocoClass.coffee')).at_least(1)
-              Runner.new(directory: '.', io: mock_io, engine_config: { 'include_paths' => ['test/fixtures/script/'] }).call
+              Runner.new(directory: '.', io: mock_io, engine_config: { 'include_paths' => ['test/fixtures/script/CocoClass.coffee'] }).call
             end
 
             it 'raises when command fails' do
@@ -50,6 +50,11 @@ module CC
               it 'include Function length' do
                 mock_io.expects(:puts).with(includes('Function length'))
                 Runner.new(directory: '.', io: mock_io, engine_config: { 'include_paths' => ['test/fixtures/script/'] }).call
+              end
+
+              it 'include Clog error' do
+                mock_io.expects(:puts).with(includes('Clog error'))
+                Runner.new(directory: '.', io: mock_io, engine_config: { 'include_paths' => ['test/fixtures/script/invalid.coffee'] }).call
               end
             end
           end
