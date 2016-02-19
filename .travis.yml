@@ -10,7 +10,7 @@ before_script:
   - npm install
 script:
   - rake test
-  - docker build --rm -t codeclimate/codeclimate-clog .
+  - rake build
   - cd test/fixtures/script && codeclimate analyze --dev
 rvm:
   - 2.1.7
