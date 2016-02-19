@@ -1,6 +1,3 @@
 engines:
   clog:
     enabled: true
-exclude_paths:
-- test/**/*
-- node_modules/**/*

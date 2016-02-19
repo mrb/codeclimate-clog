@@ -1,3 +1,4 @@
+require 'cc/engine/clog/issue/clog_error'
 require 'cc/engine/clog/issue/cyclomatic_complexity'
 require 'cc/engine/clog/issue/file_length'
 require 'cc/engine/clog/issue/function_length'
@@ -16,14 +17,22 @@ module CC
         attr_accessor :issues
 
         def call
-          handle_cyclomatic_complexity
-          handle_file_length
-          handle_function_length
-          handle_token_complexity
+          if @result['error']
+            handle_error
+          else
+            handle_cyclomatic_complexity
+            handle_file_length
+            handle_function_length
+            handle_token_complexity
+          end
           self
         end
 
         private
+
+        def handle_error
+          issues << Issue::ClogError.new(path: @path, error: @result['error'])
+        end
 
         def handle_cyclomatic_complexity
           lengths = @result['cyclomaticComplexity']['lines'].select { |_, score| score > Issue::CyclomaticComplexity::THRESHOLD }

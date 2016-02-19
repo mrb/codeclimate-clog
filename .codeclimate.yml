@@ -6,6 +6,3 @@ engines:
 ratings:
   paths:
   - "**.rb"
-exclude_paths:
-- test/**/*
-- node_modules/**/*
