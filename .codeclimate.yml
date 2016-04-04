@@ -1,8 +1,7 @@
 engines:
-  rubocop:
+  clog:
     enabled: true
-  bundler-audit:
-    enabled: true
+
 ratings:
   paths:
-  - "**.rb"
+  - "**.coffee"
